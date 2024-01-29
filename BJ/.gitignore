@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse,java,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java,git
+# Created by https://www.toptal.com/developers/gitignore/api/eclipse,macos,windows,java
+# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,macos,windows,java
 
 ### Eclipse ###
 .metadata
@@ -67,21 +67,6 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
-### Git ###
-# Created by git for backups. To disable backups in Git:
-# $ git config --global mergetool.keepBackup false
-*.orig
-
-# Created by git when using merge tools for conflicts
-*.BACKUP.*
-*.BASE.*
-*.LOCAL.*
-*.REMOTE.*
-*_BACKUP_*.txt
-*_BASE_*.txt
-*_LOCAL_*.txt
-*_REMOTE_*.txt
-
 ### Java ###
 # Compiled class file
 *.class
@@ -107,8 +92,39 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-# Created by https://www.toptal.com/developers/gitignore/api/windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### macOS Patch ###
+# iCloud generated files
+*.icloud
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -136,5 +152,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,java,git
+# End of https://www.toptal.com/developers/gitignore/api/eclipse,macos,windows,java
