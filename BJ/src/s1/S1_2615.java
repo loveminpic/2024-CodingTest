@@ -1,8 +1,11 @@
 package s1;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 /**
@@ -21,10 +24,46 @@ public class S1_2615 {
 	static StringTokenizer tokens;
 	static int N = 19;
 	static int[][] map = new int[N][N];
-	static int[][] board = new int[N][N];
+	static int winner;
+	static int a,b;
+
 	
-	public static void bfs(int x, int y) {
+	public static boolean bfs(int x, int y, int win) {
 		
+		int cnt = 1;
+		
+		int[] i = {1,1,1,0,-1,-1,-1,0};
+		int[] j = {1,0,-1,-1,-1,0,-1,1};
+
+		for(int m = 0; m < 8; m++) {
+			int rx = x + i[m];
+			int ry = y + j[m];
+			
+			if(0 > rx | rx > N | 0 > ry | ry > N) continue;
+			if(map[rx][ry] != win) continue;
+			
+			int temp_x = rx + i[m];
+			int temp_y = ry + j[m];
+			cnt++; 
+			
+			for(int p = 0; p < 3; p++) {
+				if(map[temp_x][temp_y] == win) {
+					temp_x += i[m];
+					temp_y += j[m];
+					cnt++; 
+				}else {
+					return false;
+				}
+			}
+			
+			if(cnt == 5) {
+				winner = win;
+				a = x + 1;
+				b = y + 1;
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -37,14 +76,18 @@ public class S1_2615 {
 			}
 		}
 		
-		for(int i = 0; i< N; i++ ) {
+		start : for(int i = 0; i< N; i++ ) {
 			for(int j = 0; j < N; j++) {
-				if(board[i][j] == 0 & map[i][j] != 0) {
-					
+				if(map[i][j] != 0) {
+					boolean temp = bfs(i,j, map[i][j]);
+					if(temp == true) {
+						break start;
+					}	
 				}
 			}
 		}
-		
+		System.out.println(winner);
+		System.out.println(a + " " + b);
 
 	}
 
