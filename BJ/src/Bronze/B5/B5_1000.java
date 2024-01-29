@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class B5_1000 {
 	static int a, b;
 	static StringTokenizer token;
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		token = new StringTokenizer(br.readLine());
