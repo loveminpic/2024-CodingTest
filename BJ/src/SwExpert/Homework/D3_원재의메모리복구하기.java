@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 /**
- * @author 
- * @date 
- * @link
- * @keyword_solution  
+ * @author Minji Lee
+ * @date 2024.01.29
+ * @link https://swexpertacademy.com/main/talk/solvingClub/problemView.do?solveclubId=AY0LFFoqrIIDFAXz&contestProbId=AV19AcoKI9sCFAZN&probBoxId=AY0LFFoqrIMDFAXz+&type=PROBLEM&problemBoxTitle=0129%EC%A3%BC&problemBoxCnt=++1+
+ * @keyword_solutio 구현 / 미리 설계 / Arrays 문법 / 문제 잘 이해하기 
  * @input 
  * @output   
- * @time_complex  
- * @perf 
+ * @time_complex 
+ * @perf 18300kb 107ms
  */
 
 public class D3_원재의메모리복구하기 {
