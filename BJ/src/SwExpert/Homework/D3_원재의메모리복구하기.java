@@ -14,6 +14,7 @@ import java.util.Arrays;
  * @output   
  * @time_complex 
  * @perf 18300kb 107ms
+ * bit 변수를 만들어서, 현재 변수를 기억해서 변수랑 오리지널 값이랑 비교하면 된다. 굳이 current  뒤쪽의 모든 비트를 변경할 필요가 없음!! 
  */
 
 public class D3_원재의메모리복구하기 {
