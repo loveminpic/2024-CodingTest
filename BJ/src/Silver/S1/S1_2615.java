@@ -53,6 +53,7 @@ public class S1_2615 {
 	            }
 				winner = win;
 				a = x + 1;
+				b = y + 1;
 				
 				if (dx[m] == -1 || dy[m] == -1) {
 			        a = (x + 1) + (dx[m] * (cnt - 1));
