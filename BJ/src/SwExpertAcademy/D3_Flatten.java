@@ -63,7 +63,7 @@ public class D3_Flatten {
 		// 
 		Arrays.sort(list);
 		// 기저 조건
-		if(cnt == tc) {
+		if(list[list.length-1] - list[0] == 0 | cnt == tc) {
 			result = list[list.length-1] - list[0];
 			return ;
 			
