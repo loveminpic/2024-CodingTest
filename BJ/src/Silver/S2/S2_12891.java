@@ -23,7 +23,7 @@ public class S2_12891 {
 		
 		String temp = br.readLine();
 		list = temp.toCharArray();
-		
+
 		tokens = new StringTokenizer(br.readLine());
 		for(int i = 0; i < 4; i++) {
 			ACGT[i] = Integer.parseInt(tokens.nextToken());
@@ -32,45 +32,61 @@ public class S2_12891 {
 		
 		checkingPossible();
 		System.out.println(result);
+		
 	}
-	
+
 	
 	public static void checkingPossible() {
 		int start = 0;
-		int end = cnt;
+		int end = cnt -1;
 		
 		HashMap<Character, Integer> map= new HashMap<Character, Integer>();	
 
-		while(end <= list.length ) {
-			map.put('A', ACGT[0]);
-			map.put('C', ACGT[1]); 
-			map.put('G', ACGT[2]); 
-			map.put('T', ACGT[3]);
-			
-			for(int i = start; i < end; i++) {
-				if(map.containsKey(list[i])){
-					int tmp = map.get(list[i]);
-					map.put(list[i], --tmp);
-				}
-			}
-			
-			boolean check = true;
-			
-			for(int t : map.values()) {
-				if(t > 0) {
-					check = false;
-					break;
-				}
-			}
-			
-			if(check) {
-				result++;
-			}
-			start++;
-			end++;
-		}
-
 		
-	}
+		map.put('A', ACGT[0]);
+		map.put('C', ACGT[1]); 
+		map.put('G', ACGT[2]); 
+		map.put('T', ACGT[3]);
+		
+		// 첫 번째 윈도우 초기화
+        for (int i = start; i <= end; i++) {
+            char c = list[i];
+            map.put(c, map.get(c) - 1);
+        }
 
+        checkAndIncrement(map);
+        // 슬라이딩 윈도우
+        while (end < list.length - 1) {
+            
+        	// 시작점 문자 제거
+            char startChar = list[start];
+            map.put(startChar, map.get(startChar) + 1);
+            start++;
+
+            // 끝점 문자 추가
+            end++;
+            char endChar = list[end];
+            map.put(endChar, map.get(endChar) - 1);
+
+            checkAndIncrement(map);
+        }
+	       
+	 }
+	
+
+	
+	private static void checkAndIncrement(HashMap<Character, Integer> map) {
+		boolean check = true;
+		
+		for(int t : map.values()) {
+			if(t > 0) {
+				check = false;
+				break;
+			}
+		}
+		
+		if(check) {
+			result++;
+		}
+	}
 }
