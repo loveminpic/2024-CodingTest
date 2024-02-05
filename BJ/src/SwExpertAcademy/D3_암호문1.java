@@ -1,13 +1,13 @@
 package src.SwExpertAcademy;
 /**
  * @author Minji lee
- * @date 2024
- * @link
- * @keyword_solution  
+ * @date 20240205
+ * @link https://swexpertacademy.com/main/solvingProblem/solvingProblem.do
+ * @keyword_solution 링크드 리스트 활용 
  * @input 
  * @output   
  * @time_complex  
- * @perf 
+ * @perf 20,432 kb 117 ms
  */
 
 import java.io.BufferedReader;
