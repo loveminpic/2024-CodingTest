@@ -1,4 +1,4 @@
-package src.Class;
+package src.Class.permutation;
 
 import java.util.Arrays;
 import java.util.Scanner;
