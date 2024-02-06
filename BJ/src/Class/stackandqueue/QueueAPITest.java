@@ -1,4 +1,4 @@
-package src.Class;
+package src.Class.stackandqueue;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

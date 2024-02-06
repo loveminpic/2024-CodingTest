@@ -1,4 +1,4 @@
-package src.Class;
+package src.Class.powerSet;
 
 import java.util.Scanner;
 
