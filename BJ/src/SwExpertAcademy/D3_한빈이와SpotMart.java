@@ -65,4 +65,10 @@ public class D3_한빈이와SpotMart {
 		
 	}
 
+
+	26,208 kb
+	메모리
+	135 ms
+	
+
 }
