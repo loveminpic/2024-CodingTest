@@ -52,8 +52,66 @@ public class CompleteBinaryTree<T> {
 		for(int i = 0; i < 10; i++) {
 			tree.add((char)(65+i));
 		}
-		tree.bfs();
+//		tree.bfs();
+		tree.dfsByPreorder();
+		tree.dfsByInorder();
+		tree.dfsByPostorder();
 
+
+	}
+	
+	public void dfsByPreorder() {
+		if(isEmpty()) return;
+		System.out.println("=============Preorder=============");
+		dfsByPreorder(1);
+		System.out.println();
+	}
+	//전위순회
+	private void dfsByPreorder(int current) {
+		System.out.print(nodes[current]+ " ");
+		if(current*2 <= lastIndex) {
+			dfsByPreorder(current*2);
+		}
+
+		if(current*2+1 <= lastIndex) {
+			dfsByPreorder(current*2+1);
+		}
+	}
+	
+	public void dfsByInorder() {
+		if(isEmpty()) return;
+		System.out.println("=============Inorder=============");
+		dfsByInorder(1);
+		System.out.println();
+	}
+	//전위순회
+	private void dfsByInorder(int current) {
+		
+		if(current*2 <= lastIndex) {
+			dfsByInorder(current*2);
+		}
+		System.out.print(nodes[current]+ " ");
+		if(current*2+1 <= lastIndex) {
+			dfsByInorder(current*2+1);
+		}
+	}
+	
+	public void dfsByPostorder() {
+		if(isEmpty()) return;
+		System.out.println("=============Postorder=============");
+		dfsByPostorder(1);
+		System.out.println();
+	}
+	//전위순회
+	private void dfsByPostorder(int current) {
+		if(current*2 <= lastIndex) {
+			dfsByPostorder(current*2);
+		}
+
+		if(current*2+1 <= lastIndex) {
+			dfsByPostorder(current*2+1);
+		}
+		System.out.print(nodes[current]+ " ");
 	}
 
 }
