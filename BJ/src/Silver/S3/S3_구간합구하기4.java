@@ -2,13 +2,13 @@
  * @author Minji Lee
  * @date 20240131
  * @link https://www.acmicpc.net/problem/11659
- * @keyword_solution 동적 프로그래밍
+ * @keyword_solution �룞�쟻 �봽濡쒓렇�옒諛�
  * @input 
- * 1 ≤ N ≤ 100,000
- * 1 ≤ M ≤ 100,000
- * 제한시간 1초,1 억번의 연산,그런데 NM = 100억...?  즉 O(NM)은 안됨.
+ * 1 �돞 N �돞 100,000
+ * 1 �돞 M �돞 100,000
+ * �젣�븳�떆媛� 1珥�,1 �뼲踰덉쓽 �뿰�궛,洹몃윴�뜲 NM = 100�뼲...?  利� O(NM)�� �븞�맖.
  * @output 
- * @time_complex 상수 100,000번 + 100,000번 O(2N) -> O(N)
+ * @time_complex �긽�닔 100,000踰� + 100,000踰� O(2N) -> O(N)
  * @perf  58568kb 700ms
  */
 package src.Silver.S3;
@@ -59,6 +59,6 @@ public class S3_구간합구하기4 {
 		System.out.println(result);
 	
 	}
-	
+
 
 }

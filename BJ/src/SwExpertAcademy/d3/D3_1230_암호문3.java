@@ -31,8 +31,7 @@ public class D3_1230_암호문3 {
 	            	  }
 	                  break;
 	               case 'D' : //삭제
-	            	  int idx = Integer.parseInt(st.nextToken());
-		              int num = Integer.parseInt(st.nextToken());
+	     
 	                  break;
 	               case 'A' : //추가
 	                  break;
