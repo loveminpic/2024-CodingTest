@@ -16,7 +16,7 @@
  * @perf 21732메모리 123ms
  */
 
-package src.SwExpertAcademy;
+package src.SwExpertAcademy.d3;
 
 import java.io.BufferedReader;
 import java.io.IOException;
