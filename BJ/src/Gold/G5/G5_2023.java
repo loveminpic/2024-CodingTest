@@ -1,4 +1,4 @@
-package src.Gold;
+package src.Gold.G5;
 
 import java.util.Scanner;
 
