@@ -3,6 +3,7 @@ package src.SwExpertAcademy.d3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 
@@ -44,9 +45,11 @@ public class D3_햄버거다이어트 {
 
 	private static void powerSet(int cnt, boolean[] choose) {
 		if(cnt == N) {
+			System.out.println(Arrays.toString(choose));
 			findingMax(choose);
 			return;
 		}
+		
 		choose[cnt] = true;
 		powerSet(cnt+1, choose);
 		choose[cnt] = false;
