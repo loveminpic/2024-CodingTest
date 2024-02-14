@@ -1,34 +1,46 @@
 package src.Silver.S1;
+/**
+ * @author Minji Lee
+ * @date 20240214
+ * @link https://www.acmicpc.net/problem/1074
+ * @keyword_solution 분할정복 
+ * @input 1 <= N <= 15
+ * @output (r,c)를 몇번째 방문했는지? 
+ * @time_complex O(logN)
+ * @perf 14412kb	120ms
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 
 public class S1_1074 {
+	 static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	 static StringTokenizer tokens;
 	 static int r;
 	 static int c;
 	    
 	public static void main(String[] args) throws IOException {
 	   
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] inputs = br.readLine().split(" ");
+		tokens = new StringTokenizer(br.readLine());
 
-		int N = Integer.parseInt(inputs[0]); // 2^N*2^N 을 만들기 위한 입력
-		r = Integer.parseInt(inputs[1]); // r,c 입력
-		c = Integer.parseInt(inputs[2]);
+		int N = Integer.parseInt(tokens.nextToken()); // N 입력 
+		r = Integer.parseInt(tokens.nextToken());  // 행,열 입력 
+		c = Integer.parseInt(tokens.nextToken()); 
 
-		int pow_n = (int) Math.pow(2, N);
+		int pow_n = (int) Math.pow(2, N); // 2의 N승 
 
 		recursive(0, 0, pow_n, 0);
 	}
-
-	/**
-	    * 
-	    * @param si : 시작 i
-	    * @param sj : 시작 j
-	    * @param length : 시작점부터 해당 범위까지의 길이
-	    * @param cnt : (si,sj)순서
-	    */
+	
+		/*
+		si : 시작 i
+	    sj : 시작 j
+	    length : 시작점부터 해당 범위까지의 길이
+	    cnt : 방문 순서 
+	   */
 	    public static void recursive(int si, int sj, int length, int cnt){ 
 	    	// 기저조건
 	    	if (length == 1) {
@@ -40,8 +52,9 @@ public class S1_1074 {
 			}
 	    	
 	    	//1. 쪼개서 재귀를 타기 위해서 중간 값 잡아주기
-	    	int half = length/2;
+	    	int half = length/2; 
 	    	
+	    	 	// 1번째 재귀 
 	    	if (r < si + half && c < sj + half) {
 				recursive(si, sj, half, cnt);
 			} else if (r < si + half && c < sj + length) {
