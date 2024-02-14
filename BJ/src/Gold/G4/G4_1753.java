@@ -83,17 +83,17 @@ public class G4_1753 {
 	}
 	
 }
-
-class Node implements Comparable<Node>{
-	int to;
-	int weight;
-	
-	public Node(int to, int weight) {
-		this.to = to;
-		this.weight = weight;
-	}
-	 @Override
-	    public int compareTo(Node o) {
-	        return Integer.compare(this.weight, o.weight);
-	    }
-}
+//
+//class Node implements Comparable<Node>{
+//	int to;
+//	int weight;
+//	
+//	public Node(int to, int weight) {
+//		this.to = to;
+//		this.weight = weight;
+//	}
+//	 @Override
+//	    public int compareTo(Node o) {
+//	        return Integer.compare(this.weight, o.weight);
+//	    }
+//}
