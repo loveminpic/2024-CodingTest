@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class D4_사칙연산유효성검사 {
+public class D4_사칙연산유효성검사  {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 

@@ -6,10 +6,10 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class AdjMatrixTest {
-
+static int V;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int V = sc.nextInt();
+		V = sc.nextInt();
 		int E = sc.nextInt();
 		
 		int[][] adjMatrix = new int[V][V];
@@ -20,8 +20,9 @@ public class AdjMatrixTest {
 			
 		}
 		
-		bfs(adjMatrix,0);
-//		bfs2(adjMatrix,0);
+//		bfs(adjMatrix,0);
+		boolean[] visited = new boolean[V];
+		dfs(adjMatrix, visited, 0);
 	}
 	
 	static void bfs(int[][] adjMatrix, int start) {
@@ -76,6 +77,19 @@ public class AdjMatrixTest {
 				}
 
 			}
+		}
+	}
+	
+	static void dfs(int[][] adjMatrix, boolean[] visited, int current) {
+		
+		visited[current] = true;
+		System.out.println((char) (current+65));
+		
+		for(int i = 0; i < V; ++i) {
+			if(adjMatrix[current][i] != 0 && !visited[i]) {
+				dfs(adjMatrix, visited, i);
+			}
+
 		}
 	}
 }

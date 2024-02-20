@@ -21,7 +21,7 @@ public class Solution_2930_힙 {
          for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             switch (Integer.parseInt(st.nextToken())) {
-            case 1: //힙에 값을 넣기
+            case 1: //�옓�뿉 媛믪쓣 �꽔湲�
                int num = Integer.parseInt(st.nextToken());
                pq.add(num);
                break;

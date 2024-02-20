@@ -1,6 +1,6 @@
 package src.SSAFY.Lv3;
 
-public class ê°€ìœ„ë°”ìœ„ë³´_2006_2 {
+public class °¡À§¹ÙÀ§º¸_2006_2 {
 
 	public static void main(String[] args) {
 	

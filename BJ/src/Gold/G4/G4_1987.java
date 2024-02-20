@@ -19,18 +19,19 @@ import java.util.StringTokenizer;
 public class G4_1987 {
 	static int R, C;
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static List<Character> visited = new ArrayList<>();
 	static char board[][];
 	static StringTokenizer tokens;
 	static int[] dx = {0,1,0,-1};
 	static int[] dy = {1,0,-1,0};
 	static int result = 0;
+	static boolean[] visited = new boolean[27];
 	public static void main(String[] args) throws IOException {
 		
 		tokens = new StringTokenizer(br.readLine());
 		R = Integer.parseInt(tokens.nextToken());
 		C = Integer.parseInt(tokens.nextToken());
 		board = new char[R][C];
+		
 		for(int i = 0; i < R; i++) {
 			String tmp = br.readLine();
 			board[i] = tmp.toCharArray();
@@ -44,17 +45,17 @@ public class G4_1987 {
 		
 		cnt++;
 		result = Math.max(result,cnt);
-		visited.add(board[r][c]);
+		visited[board[r][c] -'A'] = true;
 		
 		for(int i = 0; i < 4; i++) {
 			int dr = r + dx[i];
 			int dc = c + dy[i];
 			
 			if(dr < 0 || dr >= R || dc < 0|| dc >= C) continue;
-			if(visited.contains(board[dr][dc])) continue;
+			if(visited[board[dr][dc]-'A']) continue;
 			dfs(dr,dc, cnt);
 		}
-		visited.remove(visited.size()-1);
+		visited[board[r][c]-'A'] = false;
 
 	}
 

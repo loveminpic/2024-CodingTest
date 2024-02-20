@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * @perf 
  */
 
-public class 모의SW역량테스트_요리사 {
+public class 모의SW역량테스트_요리사  {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 	static StringTokenizer tokens;

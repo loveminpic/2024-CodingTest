@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class D3_상호의배틀필드 {	
+public class D3_상호의배틀필드  {	
 	static BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer tokens ;
 	static StringBuilder sb = new StringBuilder();

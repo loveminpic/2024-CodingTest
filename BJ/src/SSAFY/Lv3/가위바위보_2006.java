@@ -2,7 +2,7 @@ package src.SSAFY.Lv3;
 
 import java.util.ArrayList;
 
-public class ê°€ìœ„ë°”ìœ„ë³´_2006 {
+public class °¡À§¹ÙÀ§º¸_2006 {
 
 	public static void main(String[] args) {
 		ArrayList<Integer> list = new ArrayList<Integer>();

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 // 무향 리스트 연결리스트 버전 
 public class AdjListTest {
-
+	static int V;
 	static class Node{
 		int to;
 		Node next;
@@ -29,7 +29,7 @@ public class AdjListTest {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int V = sc.nextInt();
+		V = sc.nextInt();
 		int E = sc.nextInt();
 		
 		Node[] adjList = new Node[V];
@@ -42,7 +42,8 @@ public class AdjListTest {
 			
 		}
 		
-		bfs(adjList,0);
+//		bfs(adjList,0);
+		dfs(adjList,new boolean[V],0);
 
 	}
 
@@ -71,6 +72,20 @@ public class AdjListTest {
 			}
 		}
 	}
+	
+	static void dfs(Node[] adjList, boolean[] visited, int current) {
+			
+		visited[current] = true;
+		System.out.println((char) (current+65));
+		
+		for(Node temp = adjList[current]; temp != null; temp = temp.next ) {
+			if(!visited[temp.to]) {
+				dfs(adjList, visited, temp.to);
+			}
+
+		}
+	}
+
 }
 /*
 7

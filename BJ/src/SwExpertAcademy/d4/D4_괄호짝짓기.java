@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class D4_괄호짝짓기 {
+public class D4_괄호짝짓기  {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer tokens;
 	static StringBuilder sb = new StringBuilder();

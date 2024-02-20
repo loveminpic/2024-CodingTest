@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class 무선충전 {
+public class 무선충전  {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 	static StringTokenizer tokens;
