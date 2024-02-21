@@ -1,4 +1,4 @@
-package src.Class;
+package src.Class.dfsBfs;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
