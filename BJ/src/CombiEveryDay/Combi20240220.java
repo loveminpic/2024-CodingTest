@@ -1,7 +1,8 @@
+package src.CombiEveryDay;
 import java.util.Arrays;
 
 public class Combi20240220 {
-	// nCr ·Î ¼ø¼­ »ó°ü¾øÀÌ Á¶ÇÕÀÌ µÇ¸éµÊ
+	// nCr ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ï¿½
 	static int[] src = { 1,2,3};
 	static int N = 2;
 	public static void main(String[] args) {

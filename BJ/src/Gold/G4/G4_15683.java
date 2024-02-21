@@ -46,6 +46,8 @@ public class G4_15683 {
 	static int[][] two = {{0,1},{2,3}}; // 2
 	static int[][] three = {{0,3}, {1,2}, {0, 2}, {1, 3}}; // 4
 	static int[][] four = {{0,2,3},{1,2,3},{2,0,1},{3,0,1}}; // 4
+
+	
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -171,9 +173,9 @@ public class G4_15683 {
 				}
 			}
 		}
-		if(cnt != 0) {
-			result = Math.min(result, cnt);
-		}
+		
+		result = Math.min(result, cnt);
+		
 	}
 
 	private static void settingCCTV(int r, int c, int[][] cctv) {

@@ -1,7 +1,8 @@
+package src.PemutationEveryDay;
 import java.util.Arrays;
 
 public class Permu20240220 {
-	// ¼ø¿­Àº ¼ø¼­°¡ ÇÊ¿äÇÏ°í, ÇÊ¿äÇÑ cnt °¡ ÇÊ¿äÇÏ°í, visitedµµ ÇÊ¿äÇÔ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï°ï¿½, ï¿½Ê¿ï¿½ï¿½ï¿½ cnt ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï°ï¿½, visitedï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½
 	static int[] src = {1,2,3,4,5};
 
 	static int N = 4;
