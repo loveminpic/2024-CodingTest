@@ -1,44 +1,37 @@
 import java.net.*;
+import java.util.Arrays;
 import java.io.*;
 
 public class TEST {
-
-	// 닉네임을 사용자에 맞게 변경해 주세요.
-	static final String NICKNAME = "DAEJEON02_JAVA";
-	
-	// 일타싸피 프로그램을 로컬에서 실행할 경우 변경하지 않습니다.
-	static final String HOST = "127.0.0.1";
-
-	// 일타싸피 프로그램과 통신할 때 사용하는 코드값으로 변경하지 않습니다.
-	static final int PORT = 1447;
-	static final int CODE_SEND = 9901;
+	static int[] dice1 = { 1, 2, 3, 4, 5, 6 };
+	static int[] dice2 = { 1, 2, 3, 4 };
+	static int[] dice3 = { 1, 2 };
 
 	public static void main(String[] args) {
 
-		Socket socket = null;
-		byte[] bytes = new byte[1024];
+		dfs(1, new int[3], 0);
 
-		try {
-			socket = new Socket();
-			System.out.println("Trying Connect: " + HOST + ":" + PORT);
-			socket.connect(new InetSocketAddress(HOST, PORT));
-			System.out.println("Connected: " + HOST + ":" + PORT);
+	}
 
-			InputStream is = socket.getInputStream();
-			OutputStream os = socket.getOutputStream();
-
-			String send_data = CODE_SEND + "/" + NICKNAME + "/";
-			bytes = send_data.getBytes("UTF-8");
-			os.write(bytes);
-			os.flush();
-			System.out.println("Ready to play!\n--------------------");
-
-			os.close();
-			is.close();
-			socket.close();
-			System.out.println("Connection Closed.\n--------------------");
-		} catch (Exception e) {
-			e.printStackTrace();
+	private static void dfs(int type, int[] choosed, int cnt) {
+		if (cnt == 3) {
+			System.out.println(Arrays.toString(choosed));
+			return;
 		}
+		int[] range = null;
+		if (type == 1) {
+			range = dice1;
+		} else if (type == 2) {
+			range = dice2;
+		} else {
+			range = dice3;
+		}
+
+		for (int i = 0; i < range.length; i++) {
+			choosed[cnt] = range[i];
+			dfs(type+1, choosed, cnt + 1);
+
+		}
+
 	}
 }
