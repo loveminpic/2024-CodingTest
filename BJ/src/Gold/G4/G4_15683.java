@@ -39,6 +39,7 @@ public class G4_15683 {
 	static int[][] board;
 	static List<Cctv> cctvList = new ArrayList<>();
 	
+	// 방향에 대한 정규화를 진행한다. 
 	// 상 :0, 하: 1, 좌: 2, 우 :3
 	static int[][] direction = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 	
@@ -74,7 +75,11 @@ public class G4_15683 {
 			for(int j = 0; j < C; j++) {
 				switch (board[i][j]) {	
 				case 5:
-					settingCCTV(i,j,direction);
+					for(int d5 = 0; d5 < 4; d5++) {
+						int dr = direction[d5][0];
+						int dc = direction[d5][1];
+						settingCCTV(i,j, dr,dc);
+					}
 					break;
 				}
 			}
@@ -84,10 +89,7 @@ public class G4_15683 {
 		newboard = board;
 		
 		dfs(0, newboard);
-			
-		if(result == 1000000) {
-			result = 0;
-		}
+
 		System.out.println(result);
 	}
 	
@@ -119,48 +121,48 @@ public class G4_15683 {
 			int[][] tmp_board = new int[R][C];
 			
 			for(int first = 0; first < R; first++) {
-				for(int second = 0; second < C; second++) {
-					tmp_board[first][second] = board[first][second];
-				}
+				tmp_board[first] = Arrays.copyOf(board[first],board[first].length );
 			}
 
+
 			for(int j = 0; j < range[i].length; j++) {
-				
 				int d = range[i][j];
 				int dr = direction[d][0];
 				int dc = direction[d][1];
 				
-				int rx = dr + cctvList.get(numcctv).r;
-				int ry = dc + cctvList.get(numcctv).c;
-				
-				while(rx >= 0 && rx < R && ry >= 0 && ry < C) {
-					if(board[rx][ry] == 6) {
-						break;
-					}
-					if(board[rx][ry] == 0) {
-						board[rx][ry] = -1;
-					}
-					
-					rx += dr;
-					ry += dc;
-				}
-				
+				settingCCTV(cctvList.get(numcctv).r, cctvList.get(numcctv).c, dr,dc);
 				
 			}
 			
 			dfs(numcctv+1, board);
 			
 			for(int first = 0; first < R; first++) {
-				for(int second = 0; second < C; second++) {
-					board[first][second] = tmp_board[first][second];
-				}
+				board[first] = Arrays.copyOf(tmp_board[first],tmp_board[first].length );
 			}
+
 
 		}
 
 
 	}
 
+	private static void settingCCTV(int r, int c, int dr, int dc) {
+		int rx = dr + r;
+		int ry = dc + c;
+		
+		while(rx >= 0 && rx < R && ry >= 0 && ry < C) {
+			if(board[rx][ry] == 6) {
+				break;
+			}
+			if(board[rx][ry] == 0) {
+				board[rx][ry] = -1;
+			}
+			
+			rx += dr;
+			ry += dc;
+		}
+	}
+	
 	private static void checkingZero(int[][] board) {
 		int cnt = 0;
 		for(int i = 0; i < R; i++) {
@@ -176,25 +178,6 @@ public class G4_15683 {
 		
 		result = Math.min(result, cnt);
 		
-	}
-
-	private static void settingCCTV(int r, int c, int[][] cctv) {
-		
-		for(int i = 0; i < cctv.length; i++) {
-			int rx = r + cctv[i][0];
-			int ry = c + cctv[i][1];
-			
-			while(rx >= 0 && rx < R && ry >= 0 && ry < C) {
-				if(board[rx][ry] == 6) {
-					break;
-				}
-				if(board[rx][ry] == 0) {
-					board[rx][ry] = -1;
-				}
-				rx += cctv[i][0];
-				ry += cctv[i][1];
-			}
-		}
 	}
 
 }
