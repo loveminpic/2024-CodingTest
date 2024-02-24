@@ -52,7 +52,7 @@ public class Test_7465 {
 			
 			for(LinkNode tmp : list) {
 				if(tmp == null) continue;
-				result.add(tmp.parents.data);
+				result.add(findSet(tmp).data);
 			}
 			sb.append("#"+ t).append(" ").append(result.size()).append("\n");
 		}
@@ -66,9 +66,8 @@ public class Test_7465 {
 		if(px == py) return;
 		
 		LinkNode current = py;
-		while(current != null) {
+		if(current != null) {
 			current.parents = px;
-			current = current.next;
 		}
 		
 	}
@@ -79,7 +78,7 @@ public class Test_7465 {
 			x.parents = findSet(x.parents);
 		}
 		
-		return x.parents;	
+		return x.parents;
 	}
 	
 	
