@@ -7,7 +7,6 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 
 public class Test_5653 {
 	static class Cell{
