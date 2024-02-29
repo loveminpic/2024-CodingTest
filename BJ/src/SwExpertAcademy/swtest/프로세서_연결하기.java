@@ -24,17 +24,22 @@ public class 프로세서_연결하기 {
 	static int[][] direction = {{0,1}, {0,-1}, {1, 0}, {-1,0}};
 	
 	static int N;
-	static int result = 1000000;
+	static int max = 0;
+	static int result = Integer.MAX_VALUE;
 	static StringBuilder sb = new StringBuilder();
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer tokens;
-		int TC = Integer.parseInt(br.readLine());
+		int TC = Integer.parseInt(br.readLine().trim());
 		
 		for(int t = 1; t <= TC; t++) {
 			N = Integer.parseInt(br.readLine().trim());
 			board = new int[N][N];
-			result = 1000000;
+			result = Integer.MAX_VALUE;
+			max = 0;
+			list = new ArrayList<>();
+			
 			for(int i = 0; i< N; i++) {
 				tokens = new StringTokenizer(br.readLine());
 				for(int j= 0; j < N; j++) {
@@ -49,47 +54,67 @@ public class 프로세서_연결하기 {
 			}
 			// ---------------------------INPUT END-----------------------------
 			if(list != null) {
-				dfs(0, 0, new boolean[N][N]);
+				dfs(0, 0, 0);
 			}
-			sb.append("#" + t +" " + result);
+			sb.append("#" + t +" " + result + "\n");
 		}
 		System.out.println(sb);
 	}
 	
-	private static void dfs(int start, int cnt, boolean[][] visited) {
-		if(start == N-1 ) {
-			result = Math.min(result, cnt);
+	private static void dfs(int idx, int cnt , int coreCnt) {
+		
+		if(idx == list.size()) {
+			if( max < coreCnt) {
+				max = coreCnt;
+				result = cnt; 
+			}else if( max == coreCnt) {
+				result = Math.min(result, cnt);
+			}
 			return;
 		}
-
-		for(int i= start; i < list.size(); i++) {
-			int r = list.get(i).r;
-			int c = list.get(i).c;
-			int tmp = 0; 
-			for(int d = 0; d < 4; d++) {
+		
+		
+		int r = list.get(idx).r;
+		int c = list.get(idx).c;
+		
+		
+		for(int d = 0; d < 4; d++) {
+			boolean check = true;
+			int rx = r;
+			int ry = c;
+			while(true) {
+				rx += direction[d][0];
+				ry += direction[d][1];
+				if(rx < 0 || rx >= N || ry < 0 || ry >= N) break;
+				if(board[rx][ry] > 0) {
+					check = false;
+					break;
+				}
+			}
 			
-				boolean[][] newVisited = new boolean[N][N];
-				for(int h = 0; h < N; h++) {
-					newVisited[h] = Arrays.copyOf(visited[h], visited[h].length);
-				}
-				
-				tmp = 0;
-				int rx = r + direction[d][0];
-				int ry = c + direction[d][1];		
-				while(true) {
-					if(rx >= 0 && rx < N && ry >= 0 && ry<N && !visited[rx][ry]) {
-						tmp++;
-						newVisited[rx][ry] = true;
-						rx += direction[d][0];
-						ry += direction[d][1];
-					}else {
-						break;
-					}
-				}
-				dfs(i+1, cnt+tmp, newVisited);
+			if(check) {
+				int tmp = settingboard(r, c ,d ,2);
+				dfs(idx+1, cnt+tmp, coreCnt+1);
+				settingboard(r, c, d, 0);
 			}
 			
 		}
+		dfs(idx+1, cnt, coreCnt);
 	}
-
+	
+	private static int settingboard(int r, int c, int d, int setNum) {
+		int tmp = 0;
+		int rx = r;
+		int ry = c;
+		while(true) {
+			rx += direction[d][0];
+			ry += direction[d][1];
+			if(rx < 0 || rx >= N || ry < 0 || ry >= N) break;
+		
+			tmp++;
+			board[rx][ry] = setNum;
+		
+		}
+		return tmp;
+	}
 }
