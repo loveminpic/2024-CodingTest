@@ -1,4 +1,4 @@
-package src.SwExpertAcademy.d3;
+package SwExpertAcademy.d3;
 /**
  * @author Minji lee
  * @date 20240205

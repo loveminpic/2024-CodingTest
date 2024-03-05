@@ -1,4 +1,4 @@
-package src.SwExpertAcademy.swtest;
+package SwExpertAcademy.swtest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
