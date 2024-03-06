@@ -1,4 +1,4 @@
-package src.SwExpertAcademy.swtest;
+package SwExpertAcademy.swtest;
 
 public class Swtest_5653 {
 
