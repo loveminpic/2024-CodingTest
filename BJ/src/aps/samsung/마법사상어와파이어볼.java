@@ -15,8 +15,8 @@ public class 마법사상어와파이어볼 {
 		int r;
 		int c;
 		int w;
+		int s;	
 		int d;
-		int s;
 		
 		public FireBall(int r, int c, int w,  int s, int d) {
 			super();
@@ -42,54 +42,55 @@ public class 마법사상어와파이어볼 {
 		M = Integer.parseInt(tokens.nextToken());
 		K = Integer.parseInt(tokens.nextToken());
 		
-		board = new int[N+1][N+1];
+		board = new int[N][N];
 		
 		for(int i = 0; i < M ; i ++) {
 			tokens = new StringTokenizer(br.readLine());
 			int r = Integer.parseInt(tokens.nextToken());
 			int c = Integer.parseInt(tokens.nextToken());
-			int m = Integer.parseInt(tokens.nextToken());
+			int w = Integer.parseInt(tokens.nextToken());
 			int s = Integer.parseInt(tokens.nextToken());
 			int d = Integer.parseInt(tokens.nextToken());
-			q.add(new FireBall(r, c, m, s, d));
-			board[r][c] += 1;
+			q.add(new FireBall(r-1, c-1, w, s, d));
+			board[r-1][c-1] += 1;
 		}
+		
+		
 		
 		while(K-- > 0) {
 			
 			int size = q.size();
+			List<int[]> callList = new ArrayList<>();
+			boolean[][] visited = new boolean[N][N];
+			
 			while(size -- > 0) {
-				FireBall currBall = q.poll();
-				board[currBall.r][currBall.c] -= 1;
+				FireBall cur = q.poll();
+				board[cur.r][cur.c] -= 1;
 				
-				int rx = currBall.r + (dx[currBall.d] * currBall.s);
-				int ry = currBall.c + (dy[currBall.d] * currBall.s);
+				int rx = (cur.r + dx[cur.d] * (cur.s % N) + N)  % N;
+				int ry = (cur.c + dy[cur.d] * (cur.s % N) + N)  % N;
 				
-				if(rx <= 0 || rx > N || ry <= 0 || ry > N ) {
-					if(currBall.d == 0 || currBall.d == 4) {
-						rx = rx % N;
-					}else if (currBall.d == 6 || currBall.d == 2) {
-						ry = ry % N;
-					}else{
-						continue;
-					}
-				}
+				cur.r = rx;
+				cur.c = ry;
+				
 				board[rx][ry] += 1;
-				currBall.r = rx;
-				currBall.c = ry;
-				q.add(currBall);
-			}
-			
-			for(int i = 0; i <= N; i++) {
-				for(int j = 0; j <= N; j++) {
-					if(board[i][j] >= 2) {
-						happening(i,j, board);
-					}
+				q.add(cur);	
+				
+				int[] m = new int[] {rx,ry};
+				if(!visited[rx][ry]) {
+					callList.add(m);
+					visited[rx][ry] = true;
 				}
 			}
 			
-			
+			for(int i = 0; i < callList.size(); i++) {
+				int[] tmp = callList.get(i);
+				if(board[tmp[0]][tmp[1]] >= 2) {
+					happening(tmp[0],tmp[1]);
+				}
+			}
 		}
+		
 		int result = 0;
 		for(FireBall tmp : q) {
 			result += tmp.w;
@@ -97,35 +98,32 @@ public class 마법사상어와파이어볼 {
 		System.out.println(result);
 	}
 	
-	private static void happening(int r, int c, int[][] board) {
-		List<FireBall> list = new ArrayList<FireBall>();
+	private static void happening(int r, int c) {
 		int size = q.size();
-		for(int i = 0; i < size; i++) {
-			FireBall curr = q.poll();
-			if(curr.r == r && curr.c == c) {
-				board[curr.r][curr.c] -= 1;
-				list.add(curr);
-			}else {
-				q.add(curr);
-			}
-		}
 		int w = 0;
 		int s = 0;
 		
 		int jjak = 0;
 		int hole = 0;
 		
-		for(int i = 0; i < list.size(); i++) {
-			w += list.get(i).w;
-			s += list.get(i).s;
-			if(list.get(i).d % 2 == 0) {
-				jjak += 1;
+		for(int i = 0; i < size; i++) {
+			FireBall curr = q.poll();
+			if(curr.r == r && curr.c == c) {
+				w += curr.w;
+				s += curr.s;
+				if(curr.d % 2 == 0) {
+					jjak += 1;
+				}else {
+					hole += 1;
+				}
 			}else {
-				hole += 1;
+				q.offer(curr);
 			}
 		}
-		w = w/5;
-		s = s/list.size();
+		 
+		w = w / 5;
+		s = s / board[r][c];
+		
 		int[] d;
 		if(jjak == 0 || hole == 0) {
 			d = new int[] {0,2,4,6};
@@ -133,23 +131,15 @@ public class 마법사상어와파이어볼 {
 			d= new int[] {1,3,5,7};
 		}
 		
-		for(int i = 0; i < 4 ; i++) {
-			FireBall tmp = new FireBall(r, c, w, s, d[i]);
-			q.add(tmp);
-			
-		}
-		board[r][c] += 4;
-		board[r][c] -= list.size();
-		
-		size = q.size();
-		for(int i = 0; i < size; i ++) {
-			FireBall tmp = q.poll();
-			if(tmp.w == 0) {
-				board[tmp.r][tmp.c] -= 1;
-			}else {
-				q.add(tmp);
+		if(w > 0) {
+			for(int i = 0; i < 4 ; i++) {
+				q.add(new FireBall(r, c, w, s, d[i]));	
 			}
+			board[r][c] = 4;
+		}else {
+			board[r][c] = 0;
 		}
+		
 	}
 
 }
