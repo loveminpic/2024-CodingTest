@@ -186,8 +186,29 @@ public class 루돌프의반란 {
 		
 	}
 
-	private static void crush(int num, int d, int score) {
-		// 
+	private static void crush(int santaNum, int d, int score) {
+		santaList.get(santaNum).score += score;
+		
+		// 산타 자리 지워주고~ 
+		board[santaList.get(santaNum).x][santaList.get(santaNum).y] = 0;
+		
+		int rx = santaList.get(santaNum).x + (dx[d] * score);
+		int ry = santaList.get(santaNum).y + (dy[d] * score);
+		
+		if(rx <= 0 || ry <= 0 || rx > N || ry > N) {
+			santaList.get(santaNum).die = true;
+			return;
+		}
+		// 산타 위치 재설정 해주고~ 
+		santaList.get(santaNum).x = rx;
+		santaList.get(santaNum).y = ry;
+		
+		if(board[rx][ry] > 0) {
+			// 상호작용 
+		}
+		
+		// 보드에도 다시 입력해주고! 
+		board[rx][ry] = santaNum;
 		
 	}
 
@@ -246,8 +267,7 @@ public class 루돌프의반란 {
 			crush(santaNum, direction , D);
 			santaList.get(santaNum).wakeUpTime = 2;
 		}
-		// 산 자리 세팅
-		board[newPosForSanta[0]][newPosForSanta[1]] = santaNum;
+		
 		
 		
 	}
