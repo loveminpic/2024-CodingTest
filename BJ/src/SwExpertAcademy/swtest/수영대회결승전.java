@@ -16,25 +16,12 @@ public class 수영대회결승전 {
 	static int[] end;
 	
 	static int[][] board;
-	static int[][] visited;
+	static boolean[][] visited;
 	
-	static Queue<Pos> tonaido ;
 	static int result;
 	static int count = 0;
 	
-	static public class Pos{
-
-		int x;
-		int y;
-		int before = -1;
-		
-		public Pos(int x, int y) {
-			super();
-			this.x = x;
-			this.y = y;
-		}
-		
-	}
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 	
 		TC = Integer.parseInt(br.readLine());
@@ -42,9 +29,8 @@ public class 수영대회결승전 {
 			N = Integer.parseInt(br.readLine());
 			
 			board = new int[N][N]; // 초기화
-			visited = new int[N][N]; // 초기화
-			tonaido = new ArrayDeque<>(); // 초기화 
-			result = 0;
+			visited = new boolean[N][N]; // 초기화
+			result = -1;
 			start = new int[2];
 			end = new int[2];
 			
@@ -52,12 +38,9 @@ public class 수영대회결승전 {
 				tokens = new StringTokenizer(br.readLine());
 				for(int j = 0; j <N; j++) {
 					board[i][j] = Integer.parseInt(tokens.nextToken());
-					if(board[i][j] == 2) {
-						board[i][j] = -2;
-						tonaido.offer(new Pos(i,j));
-					}
 				}
 			}
+			
 			tokens = new StringTokenizer(br.readLine());
 			start[0] = Integer.parseInt(tokens.nextToken());
 			start[1] = Integer.parseInt(tokens.nextToken());
@@ -70,7 +53,7 @@ public class 수영대회결승전 {
 		
 			bfs();
 			
-			sb.append("#").append(tc).append(" ").append(result-1).append("\n");
+			sb.append("#").append(tc).append(" ").append(result).append("\n");
 		}
 		System.out.println(sb);
 	}
@@ -80,52 +63,44 @@ public class 수영대회결승전 {
 		int[] dy = {0,0,1,-1};
 		
 		Queue<int[]> q = new ArrayDeque<>();
-		q.offer(new int[] {start[0], start[1]});
-		visited[start[0]][start[1]] = 1;
+		q.offer(start);
+		visited[start[0]][start[1]] = true;
+		int time = 0; 
 		
 		while(!q.isEmpty()) {
-			count++;
 			int size = q.size();
-			while(size --> 0) {
-				int[] current = q.poll();
-
+			
+			while(size -- > 0) {
+				int[] curr = q.poll();
+				
 				for(int i = 0; i < 4; i++) {
-					int rx = current[0] + dx[i];
-					int ry = current[1] + dy[i];
+					int rx = dx[i] + curr[0];
+					int ry = dy[i] + curr[1];
 					
 					if(rx < 0 || ry < 0 || rx >= N || ry >= N) continue;
-					if(visited[rx][ry] > 0 || board[rx][ry] == 1) continue;
-					if(board[rx][ry] == 0) {
-						visited[rx][ry] = visited[current[0]][current[1]] + 1;
-						q.offer(new int[] {rx,ry});
-					}else if(board[rx][ry] < 0) {
-						q.offer(current);
+					if(board[rx][ry] == 1) continue;
+					if(visited[rx][ry]) continue;
+					if(board[rx][ry] == 2) {
+						if(time % 3 != 2) {
+							q.offer(curr.clone());
+							continue;
+						}
 					}
 					if(rx == end[0] && ry == end[1]) {
-						result = visited[rx][ry];
+						result = time + 1;
 						return;
 					}
+					
+					q.offer(new int[] {rx,ry});
+					visited[rx][ry] = true;
 				}
+					
 			}
-			removeTonaido();
-		}	
+			time++;
+		}
 		
 	}
 
-	private static void removeTonaido() {
-		int size = tonaido.size();
-		
-		for(int i = 0; i < size; i++) {
-			int[] tmp = tonaido.poll();
-			if(board[tmp[0]][tmp[1]] == -2) {
-				board[tmp[0]][tmp[1]] = -1;
-			}else if(board[tmp[0]][tmp[1]] == -1) {
-				board[tmp[0]][tmp[1]] = 0;
-			}else if(board[tmp[0]][tmp[1]] == 0) {
-				board[tmp[0]][tmp[1]] = -2;
-			}
-			tonaido.add(tmp);
-		}
-	}
+	
 
 }
