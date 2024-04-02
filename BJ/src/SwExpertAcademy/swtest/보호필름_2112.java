@@ -13,111 +13,86 @@ public class 보호필름_2112 {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer tokens;
 	static int TC, D, W, K;
-	static int[][] board;
 	static int result;
-	static List<int[]> permutaionList = new ArrayList<int[]>();
+	static List<int[]> combiList = new ArrayList<int[]>();
 	static StringBuilder sb = new StringBuilder();
-		
+	static int[] a, b;
+	static int[][] board;
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		TC = Integer.parseInt(br.readLine());
-		
-		for(int t = 1; t <= TC; t++) {
+
+		for (int t = 1; t <= TC; t++) {
 			tokens = new StringTokenizer(br.readLine());
-			
-			D = Integer.parseInt(tokens.nextToken()); // 세로 
-			W = Integer.parseInt(tokens.nextToken()); // 가로 
-			K = Integer.parseInt(tokens.nextToken()); // 연속되어야 하는 수 
+
+			D = Integer.parseInt(tokens.nextToken()); // 세로
+			W = Integer.parseInt(tokens.nextToken()); // 가로
+			K = Integer.parseInt(tokens.nextToken()); // 연속되어야 하는 수
 			board = new int[D][W];
 			result = 0;
-			
-			for(int i = 0; i < D ; i++) {
-				tokens= new StringTokenizer(br.readLine());
-				for(int j = 0; j < W; j++) {
+
+			for (int i = 0; i < D; i++) {
+				tokens = new StringTokenizer(br.readLine());
+				for (int j = 0; j < W; j++) {
 					board[i][j] = Integer.parseInt(tokens.nextToken());
 				}
 			}
+			result = Integer.MAX_VALUE;
+			changeFilm(0, 0, new int [D]);
 			
-			// ------ input end ---------
-			
-			if(checkFilms(board)) {
-				continue;
-			}else {
-				// 부분 조합을 만들어서, 조합의 길이가 작은 순으로 약품 투입! 
-				// 이때 본래의 보드는 두고, 새로운 보드를 만들어서 사용해야함
-				// 이때 어느때라도 성능을 만족하면 바로 break! 
-				for(int i = 1; i <= D; i++) {
-					permutaionList = new ArrayList<int[]>(); 
-					permutaion(new int[i], new boolean[D], 0, i);
-					int[][] tmpBoard = new int[D][W];
-					for(int h = 0 ; h < board.length; h++) {
-						tmpBoard[h] = Arrays.copyOf(board[h], board[h].length);
-					}
-					for(int p = 0; p < permutaionList.size(); p++) {
-						int[][] newBoard = new int[D][W];
-						newBoard = changeFilm(permutaionList.get(p), tmpBoard);
-						if(checkFilms(newBoard)) {
-							result = i;
-							break;
-						}
-					}
-				}
-				
-			}
 			
 			sb.append("#" + t + " ").append(result).append("\n");
 		}
 		System.out.println(sb);
 	}
 
-	private static int[][] changeFilm(int[] list, int[][] tmpBoard) {
-		
-		return null;
-	}
+	private static void changeFilm(int r, int injectCnt, int[] status) {
 
-	private static void permutaion(int[] choose, boolean[] visited, int cnt, int end) {
-		if(cnt == end) {
-			int[] tmp = new int[end];
-			for(int j = 0; j < choose.length; j++) {
-				tmp[j] = choose[j];
+		// 2. 기저조건
+		if (r == D) {
+			// 상황을 파악하자.
+			if(check(status)) {
+				result = Math.min(result, injectCnt);
 			}
-			System.out.println(Arrays.toString(tmp));
-			permutaionList.add(tmp);
 			return;
 		}
-		
-		for(int i = 0; i < D ; i++) {
-			if(!visited[i]) {
-				visited[i] = true;
-				choose[cnt] = i;
-				permutaion(choose, visited, cnt+1, end);
-				visited[i] = false;
-				
+
+		// 1. 재귀조건 - 각각의 층에서 해볼 수 있는 시도
+		for (int i = -1; i < 2; i++) {
+			status[r] = i; // 현재 층에는 이 약을 쓰겠다.
+			if (i == -1) {
+				changeFilm(r + 1, injectCnt, status);
+			}
+			// 약을 주입하는 경우
+			else {
+				changeFilm(r + 1, injectCnt + 1, status);
 			}
 		}
+
 	}
 
-	private static boolean checkFilms(int[][] tmpboard) {
-		// 성능 검사 로직
-		int cnt = 0;
-
-		
-		for(int i = 0; i < W; i++) {
-			int tmp = tmpboard[0][i];
-			boolean check = false;
-			
-			for(int j = 1; j < D; j++) {
-				if(tmpboard[j][i] == tmp) {
-					cnt++;
+	private static boolean check(int[] status) {
+		for (int c = 0; c < W; c++) {
+			int base = 0;
+			int k = 0;
+			for (int d = 0; d < D; d++) {
+				if (d == 0) {
+					base = status[0] == -1 ? board[0][c] : status[0];
+					k=1;
 				}else {
-					cnt = 0;
-					tmp = tmpboard[j][i];
-				}
-				if(cnt == K-1) {
-					check = true;
-					break;
+					int target = status[d] == -1 ? board[d][c] : status[d];
+					if(target==base) {
+						k++;
+						if(k==K) {
+							break;
+						}
+					}else {
+						base = target;
+						k=1;
+					}
 				}
 			}
-			if(!check) {
+			if(k<K) {
 				return false;
 			}
 		}
