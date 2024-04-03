@@ -16,7 +16,7 @@ public class 숫자만들기 {
 	static long mx = -100000000;
 	static long min = 100000000;
 	static List<Integer[]> perList = new ArrayList<>();
-	static List<Integer> opList =  new ArrayList<>();
+	static int [] opList ;
 	static int[] num_list;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -26,7 +26,7 @@ public class 숫자만들기 {
 			N = Integer.parseInt(br.readLine());
 			num_list = new int[N];
 			perList = new ArrayList<>();
-			opList =  new ArrayList<>();
+			opList =  new int[4];
 			
 			tokens = new StringTokenizer(br.readLine());
 			mx = -100000000;
@@ -36,9 +36,9 @@ public class 숫자만들기 {
 			
 			for(int i = 0; i < 4; i++) {
 				int num = Integer.parseInt(tokens.nextToken());
-				for(int j = 0; j < num; j++) {
-					opList.add(i);
-				}
+				
+				opList[i] = num;
+				
 			}
 			
 			tokens = new StringTokenizer(br.readLine());
@@ -46,7 +46,7 @@ public class 숫자만들기 {
 				num_list[i] = Integer.parseInt(tokens.nextToken());
 			}
 			
-			permutation(1, new boolean[opList.size()], num_list[0]);
+			permutation(1, num_list[0]);
 			
 			long result = 0;
 			if(mx >min) {
@@ -61,18 +61,17 @@ public class 숫자만들기 {
 		
 	}
 
-	private static void permutation(int cnt, boolean[] visited, int result) {
+	private static void permutation(int cnt, int result) {
 		if(cnt == N) {
 			mx = Math.max(mx, result);
 			min = Math.min(min, result);
 			return;
 		}
 		
-		for(int i = 0; i < opList.size(); i++) {
-			if(!visited[i]) {
+		for(int i = 0; i < 4; i++) {
+			if(opList[i] > 0) {
 				int new_num = result;
-				visited[i]  = true;
-				switch(opList.get(i)) {
+				switch(i) {
 					case 0:
 						new_num += num_list[cnt];
 						break;
@@ -86,10 +85,9 @@ public class 숫자만들기 {
 						new_num /= num_list[cnt];
 						break;
 				}
-				
-				permutation(cnt+1, visited, new_num);
-				
-				visited[i] = false;
+				opList[i] --;
+				permutation(cnt+1, new_num);
+				opList[i] ++;
 			}
 		}
 	}
