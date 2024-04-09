@@ -1,4 +1,4 @@
-package SwExpertAcademy.swtest;
+package aps.samsung;
 
 import java.util.*;
 
