@@ -18,17 +18,16 @@ public class 왕실기사의대결_minji {
 	static int[] dy = {0,1,0,-1};
 	
 	static int L,N,Q;
-	static int[][] board;
-	static int[][] personBoard;
-	static List<Fighter> list = new ArrayList<Fighter>();
+	static int[][] board; // 함정 과 벽
+	static int[][] command; // 명령
+	static List<Knight> knightList = new ArrayList<Knight>();
 	
-	static public class Fighter{
+	static public class Knight{
 		int r,c,h,w,k;
 		boolean die = false;
 		int damage = 0;
 		
-
-		public Fighter(int r, int c, int h, int w, int k) {
+		public Knight(int r, int c, int h, int w, int k) {
 			super();
 			this.r = r;
 			this.c = c;
@@ -37,18 +36,21 @@ public class 왕실기사의대결_minji {
 			this.k = k;
 		}
 		
+		public void dieCheck() {
+			if(this.k <= damage) {
+				this.die = true;
+			}
+		}
+		
+		
 	}
 	public static void main(String[] args) throws IOException {
 		tokens = new StringTokenizer(br.readLine());
 		L = Integer.parseInt(tokens.nextToken());
 		N = Integer.parseInt(tokens.nextToken());
 		Q = Integer.parseInt(tokens.nextToken());
-		board = new int[L][L];
-		personBoard = new int[L][L];
-		
-		for(int i = 0; i < L; i++) {
-			Arrays.fill(personBoard[i],-1);
-		}
+		board = new int[L][L]; // original board
+		command = new int[Q][2]; 
 		
 		for(int i = 0; i < L ; i++) {
 			tokens = new StringTokenizer(br.readLine());
@@ -64,72 +66,44 @@ public class 왕실기사의대결_minji {
 			int h = Integer.parseInt(tokens.nextToken());
 			int w = Integer.parseInt(tokens.nextToken());
 			int k = Integer.parseInt(tokens.nextToken());
-			list.add(new Fighter(r-1, c-1, h, w, k));
+			knightList.add(new Knight(r-1, c-1, h, w, k));
 			
-			for(int a = r-1; a < r-1+h ; a++) {
-				for(int b = c-1; b <c-1+w ; b++) {
-					personBoard[a][b] = i;
-				}
-			}
 		}
 		
-//		for(int i = 0; i < L; i++) {
-//			System.out.println(Arrays.toString(personBoard[i]));
-//		}
 		
-		while(Q -- > 0) {
+		for(int i = 0; i < Q; i++) {
 			tokens = new StringTokenizer(br.readLine());
 			int num = Integer.parseInt(tokens.nextToken());
-			int orderD = Integer.parseInt(tokens.nextToken());
-			
-			num -= 1; // 실제로 0번이 1번이니까. 
-			
-			moveFighter(num, orderD);
-			
+			int d = Integer.parseInt(tokens.nextToken());
+			command[i] = new int[] {num-1,d};
 		}
 		
+		/// ---- input
+//		System.out.println("1");
+//		for (int i = 0; i < L ; i++) {
+//			System.out.println(Arrays.toString(board[i]));
+//		}
+//		System.out.println("2");
+//		for (int i = 0; i < L ; i++) {
+//			System.out.println(Arrays.toString(personBoard[i]));
+//		}
+//		
+//		for(int[] val : command) {
+//			System.out.println(Arrays.toString(val));
+//		}
 		
-	}
-	
-	private static void moveFighter(int num, int orderD) {
-		Queue<int[]> q = new ArrayDeque<int[]>();
-		Queue<int[]> tmpQ = new ArrayDeque<>();
-		
-		int[][] newPerBoard = new int[L][L];
-		boolean[][] visited = new boolean[L][L];
-		
-		//  보드를 돌면서 해당 넘버의 자리를 찾는다. 
-		for(int i = 0; i < L ; i++) {
-			for(int j = 0; j < L ; j++) {
-				if(personBoard[i][j] == num ) {
-					q.add(new int[] {i,j,num});
-					visited[i][j] = true;
-				}
-			}
-		}
-		
-		
-		while(q.isEmpty()) {
-			// 1. 우선 배열에서 하나씩 뺀다.
-			// 2. 뺀 배열을 d방향으로 한칸옮긴다.
-			// 3. 만약 옮긴 방향에 따로 벽이없거나 배열을 벗어나지 않으면, 또 새로운 보드에 다른 기사가 있지 않으면! 새로운 큐에 넣어주고,
-			// 새로운 보드에 해당 값을 입력시켜준다. 
-			int[] curr = q.poll();
+		for(int q = 0; q < Q; q++) {
+			int num = command[q][0]; // 기사 넘버(리스트 순서)
+			int d = command[q][1];   // 움직일 방향 
+			Knight curr = knightList.get(num);
 			
-			int rx = curr[0] + dx[orderD];
-			int ry = curr[1] + dy[orderD];
+			boolean result = checkPossible(num);
 			
-			if(rx < 0 || ry < 0 || rx >= N || ry >= N) break;
-			if(board[rx][ry] == 2) break;
-			if(board[rx][ry] > -1 && !visited[rx][ry]) {
-				q.add(new int[] {rx,ry,board[rx][ry]});
-				visited[rx][ry] = true;
-			}
-			newPerBoard[rx][ry] = curr[2];
+			
+
+			
+			
 		}
-		
-		
-		
 		
 	}
 
