@@ -21,6 +21,7 @@ public class 왕실기사의대결_minji {
 	static int[][] board; // 함정 과 벽
 	static int[][] command; // 명령
 	static List<Knight> knightList = new ArrayList<Knight>();
+	static List<Integer> updateNum = new ArrayList<>();
 	
 	static public class Knight{
 		int r,c,h,w,k;
@@ -78,33 +79,69 @@ public class 왕실기사의대결_minji {
 			command[i] = new int[] {num-1,d};
 		}
 		
-		/// ---- input
-//		System.out.println("1");
-//		for (int i = 0; i < L ; i++) {
-//			System.out.println(Arrays.toString(board[i]));
-//		}
-//		System.out.println("2");
-//		for (int i = 0; i < L ; i++) {
-//			System.out.println(Arrays.toString(personBoard[i]));
-//		}
-//		
-//		for(int[] val : command) {
-//			System.out.println(Arrays.toString(val));
-//		}
 		
 		for(int q = 0; q < Q; q++) {
 			int num = command[q][0]; // 기사 넘버(리스트 순서)
 			int d = command[q][1];   // 움직일 방향 
-			Knight curr = knightList.get(num);
-			
-			boolean result = checkPossible(num);
-			
-			
-
+	
+			boolean result = checkPossible(num, d);
+			if(result) {
+				// 좌표 변경해주기, 타격입은 기사들 체력 .. 없애주깅..ㅎ 
+				System.out.println("q : " + q);
+				for(int i = 0; i < updateNum.size(); i++) {
+					System.out.println(updateNum.get(i));
+				}
+			}
 			
 			
 		}
 		
+	}
+	private static boolean checkPossible(int num, int d) {
+		
+		Knight curr = knightList.get(num);
+		boolean flag = true; 
+		
+		int sr = curr.r + dx[d];
+		int sc = curr.c + dy[d];
+		
+		int er = curr.r + curr.h - 1 + dx[d]; // 현재 방패 end 지점 
+		int ec = curr.c + curr.w - 1 + dy[d]; 
+		
+		if(sr < 0 || sc <0 || sr >= L || sc >= L) return false; // 만약 배열 넘어가면 
+		if(er < 0 || ec <0 || er >= L || ec >= L) return false; // 만약 배열 넘어가면
+		
+		// 만약 벽이면 리턴 
+		for(int i = sr; i < sr+curr.h-1; i++) {
+			for(int j = sc; j < sc+curr.w -1; j++) {
+				if(board[i][j] == 2) return false;
+			}
+		}
+		
+				
+		for(int i = 0; i < knightList.size(); i++) {
+			if(i == num || knightList.get(i).die) continue;
+			
+			Knight checkNight = knightList.get(i);
+			int sr2 = checkNight.r ;
+			int sc2 = checkNight.c;
+			
+			int er2 = checkNight.r + checkNight.h - 1;
+			int ec2 = checkNight.c + checkNight.w - 1;
+			
+			if(sr <= sr2 || er2 <= er || sc <= sc2 || ec2 <= ec) {
+				flag = checkPossible(i, d);
+			}else {
+				break;
+			}
+			
+			if(flag) {
+				updateNum.add(num);
+			}
+
+		}
+		
+		return flag;
 	}
 
 }
